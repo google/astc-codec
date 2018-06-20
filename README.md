@@ -3,6 +3,41 @@
 astc-codec is a software ASTC decoder implementation, which supports the ASTC
 LDR profile.
 
+Example usage:
+
+```
+#include <astc-codec/astc-codec.h>
+
+// ...
+
+std::vector<uint8_t> astc = LoadMyASTCData();
+const size_t width = 640;
+const size_t height = 480;
+
+std::vector<uint8_t> result;
+result.resize(width * height * 4);
+
+bool result = astc_codec::ASTCDecompressToRGBA(
+    astc.data(), astc.size(), width, height, astc_codec::FootprintType::k4x4,
+    result.data(), result.size(), /* stride */ width * 4);
+```
+
+## Building
+
+Install [Bazel](https://bazel.build/), and then run:
+
+```
+bazel build :astc_codec -c opt
+```
+
+astc-codec has been tested on Mac and Linux.
+
+## Run Tests
+
+```
+bazel test //...
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for important contributing requirements.
@@ -12,4 +47,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for important contributing requirements.
 astc-codec project is licensed under the Apache License Version 2.0. You can
 find a copy of it in [LICENSE](LICENSE).
 
-This is not an official Google product.
+This is not an officially supported Google product.

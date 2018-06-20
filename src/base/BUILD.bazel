@@ -12,17 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-licenses(["notice"])
-
 cc_library(
-    name = "api",
-    hdrs = ["include/astc-codec/astc-codec.h"],
+    name = "base",
+    hdrs = [
+        "bit_stream.h",
+        "bottom_n.h",
+        "math_utils.h",
+        "optional.h",
+        "string_utils.h",
+        "type_traits.h",
+        "uint128.h",
+    ],
     visibility = ["//src/decoder:__pkg__"],
 )
 
-cc_library(
-    name = "astc_codec",
-    deps = ["//src/decoder:codec"],
-    includes = ["include"],
-    visibility = ["//visibility:public"],
+cc_test(
+    name = "base_test",
+    srcs = [
+        "test/bit_stream_test.cpp",
+        "test/bottom_n_test.cpp",
+        "test/math_utils_test.cpp",
+        "test/optional_test.cpp",
+        "test/string_utils_test.cpp",
+        "test/type_traits_test.cpp",
+        "test/uint128_test.cpp",
+    ],
+    deps = [
+        "@gtest//:gtest_main",
+        ":base",
+    ],
 )
+
