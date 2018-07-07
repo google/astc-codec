@@ -56,7 +56,7 @@ class BitStream {
       data_size_ -= count;
       return true;
     } else {
-      *result = 0;
+      *result = ResultType();
       return false;
     }
   }
@@ -67,7 +67,7 @@ class BitStream {
                                          : (IntType(1) << bits) - 1;
   }
 
-  IntType data_ = 0;
+  IntType data_ = IntType();
   uint32_t data_size_ = 0;
 };
 
