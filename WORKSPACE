@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-local_repository(
+git_repository(
     name = "gtest",
-    path = "third_party/googletest",
+    remote = "https://github.com/google/googletest.git",
+    commit = "ba96d0b1161f540656efdaed035b3c062b60e006",
 )
 
 new_http_archive(
