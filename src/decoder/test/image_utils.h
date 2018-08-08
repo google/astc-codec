@@ -116,7 +116,7 @@ static std::string LoadASTCFile(const std::string& basename) {
   }
 }
 
-void LoadGoldenBmp(const std::string& path, ImageBuffer* result) {
+static void LoadGoldenBmp(const std::string& path, ImageBuffer* result) {
   constexpr size_t kBmpHeaderSize = 54;
 
   SCOPED_TRACE(testing::Message() << "LoadGoldenBmp " << path);

@@ -35,7 +35,6 @@ using ::testing::Eq;
 using ::testing::Ge;
 using ::testing::Le;
 using ::testing::Ne;
-using ::testing::Optional;
 using ::testing::Pointwise;
 using ::testing::SizeIs;
 using ::testing::Pair;

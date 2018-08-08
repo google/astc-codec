@@ -27,7 +27,6 @@ namespace {
 using ::testing::ElementsAre;
 using ::testing::Eq;
 using ::testing::HasSubstr;
-using ::testing::Optional;
 using ::testing::SizeIs;
 using ::testing::TestWithParam;
 using ::testing::ValuesIn;
@@ -313,7 +312,8 @@ TEST(IntermediateASTCBlockTest, TestPackingWithLargeGap) {
 // if we properly set the endpoint range.
 TEST(IntermediateASTCBlockTest, TestEndpointRange) {
   PhysicalASTCBlock blk(0x0000000001FE000173ULL);
-  EXPECT_THAT(blk.ColorValuesRange(), Optional(Eq(255)));
+  EXPECT_TRUE(blk.ColorValuesRange().hasValue());
+  EXPECT_EQ(blk.ColorValuesRange().valueOr(0), 255);
 
   auto b = UnpackIntermediateBlock(blk);
   ASSERT_TRUE(b);
@@ -322,7 +322,8 @@ TEST(IntermediateASTCBlockTest, TestEndpointRange) {
   ASSERT_THAT(data.endpoints, SizeIs(1));
   EXPECT_THAT(data.endpoints[0].mode, Eq(ColorEndpointMode::kLDRLumaDirect));
   EXPECT_THAT(data.endpoints[0].colors, ElementsAre(0, 255));
-  EXPECT_THAT(data.endpoint_range, Optional(Eq(255)));
+  EXPECT_TRUE(data.endpoint_range.hasValue());
+  EXPECT_EQ(data.endpoint_range.valueOr(0), 255);
 }
 
 struct ImageTestParams {
