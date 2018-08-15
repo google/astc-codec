@@ -90,7 +90,7 @@ static void PrintTo(const vector<uint8_t>& vec, ostream* os) {
 }
 }  // namespace std
 
-static std::string LoadFile(const std::string& path) {
+static inline std::string LoadFile(const std::string& path) {
   std::ifstream is(path, std::ios::binary);
   EXPECT_TRUE(is) << "Failed to load file " << path;
   if (!is) {
@@ -102,7 +102,7 @@ static std::string LoadFile(const std::string& path) {
   return ss.str();
 }
 
-static std::string LoadASTCFile(const std::string& basename) {
+static inline std::string LoadASTCFile(const std::string& basename) {
   const std::string filename =
       std::string("src/decoder/testdata/") + basename + ".astc";
 
@@ -116,7 +116,7 @@ static std::string LoadASTCFile(const std::string& basename) {
   }
 }
 
-static void LoadGoldenBmp(const std::string& path, ImageBuffer* result) {
+static inline void LoadGoldenBmp(const std::string& path, ImageBuffer* result) {
   constexpr size_t kBmpHeaderSize = 54;
 
   SCOPED_TRACE(testing::Message() << "LoadGoldenBmp " << path);
@@ -191,9 +191,9 @@ static void LoadGoldenBmp(const std::string& path, ImageBuffer* result) {
   }
 }
 
-static void CompareSumOfSquaredDifferences(const ImageBuffer& golden,
-                                           const ImageBuffer& image,
-                                           double threshold) {
+static inline void CompareSumOfSquaredDifferences(const ImageBuffer& golden,
+                                                  const ImageBuffer& image,
+                                                  double threshold) {
   ASSERT_EQ(golden.DataSize(), image.DataSize());
   ASSERT_EQ(golden.Stride(), image.Stride());
   ASSERT_EQ(golden.BytesPerPixel(), image.BytesPerPixel());
