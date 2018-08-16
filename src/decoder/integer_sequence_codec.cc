@@ -14,6 +14,7 @@
 
 #include "src/decoder/integer_sequence_codec.h"
 #include "src/base/math_utils.h"
+#include "src/base/utils.h"
 
 #include <algorithm>
 #include <iostream>
@@ -383,8 +384,8 @@ void IntegerSequenceCodec::GetCountsForRange(
 
   // These are generally errors -- there should never be any ASTC values
   // outside of this range
-  assert(range > 0);
-  assert(range < 1 << kLog2MaxRangeForBits);
+  UTILS_RELEASE_ASSERT(range > 0);
+  UTILS_RELEASE_ASSERT(range < 1 << kLog2MaxRangeForBits);
 
   *bits = 0;
   *trits = 0;

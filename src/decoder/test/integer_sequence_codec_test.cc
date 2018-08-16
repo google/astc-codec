@@ -74,9 +74,8 @@ TEST(ASTCIntegerSequenceCodecTest, TestGetCountsForRange) {
     EXPECT_EQ(b, kExpectedCounts[i - 1][2]);
   }
 
-  ASSERT_DEBUG_DEATH(IntegerSequenceCodec::GetCountsForRange(0, &t, &q, &b), "");
-  ASSERT_DEBUG_DEATH(
-      IntegerSequenceCodec::GetCountsForRange(256, &t, &q, &b), "");
+  ASSERT_DEATH(IntegerSequenceCodec::GetCountsForRange(0, &t, &q, &b), "");
+  ASSERT_DEATH(IntegerSequenceCodec::GetCountsForRange(256, &t, &q, &b), "");
 
   IntegerSequenceCodec::GetCountsForRange(1, &t, &q, &b);
   EXPECT_EQ(t, 0);

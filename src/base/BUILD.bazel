@@ -22,6 +22,7 @@ cc_library(
         "string_utils.h",
         "type_traits.h",
         "uint128.h",
+        "utils.h",
     ],
     visibility = ["//src/decoder:__pkg__"],
 )

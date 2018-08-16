@@ -1,0 +1,6 @@
+# For building with the clang-specific flavor of ASAN.
+build:clang-asan --client_env=CC=clang-5.0
+build:clang-asan --copt -g3
+build:clang-asan --copt -fsanitize=address
+build:clang-asan --linkopt -fsanitize=address
+build:clang-asan --copt -fno-omit-frame-pointer

@@ -14,6 +14,7 @@
 
 #include "src/decoder/partition.h"
 #include "src/base/bottom_n.h"
+#include "src/base/utils.h"
 #include "src/decoder/footprint.h"
 
 #include <algorithm>
@@ -399,12 +400,12 @@ constexpr int EncodeDims(int width, int height) {
 
 int PartitionMetric(const Partition& a, const Partition& b) {
   // Make sure that one partition is at least a subset of the other...
-  assert(a.footprint == b.footprint);
+  UTILS_RELEASE_ASSERT(a.footprint == b.footprint);
 
   // Make sure that the number of parts is within our limits. ASTC has a maximum
   // of four subsets per block according to the specification.
-  assert(a.num_parts <= kMaxNumSubsets);
-  assert(b.num_parts <= kMaxNumSubsets);
+  UTILS_RELEASE_ASSERT(a.num_parts <= kMaxNumSubsets);
+  UTILS_RELEASE_ASSERT(b.num_parts <= kMaxNumSubsets);
 
   const int w = a.footprint.Width();
   const int h = b.footprint.Height();
