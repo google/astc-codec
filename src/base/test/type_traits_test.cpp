@@ -105,6 +105,7 @@ TEST(TypeTraits, IsTemplateInstantiation) {
       "nested std::vector<> is an instance of vector");
 }
 
+#ifndef _MSC_VER
 TEST(TypeTraits, IsRange) {
   static_assert(is_range<std::vector<int>>::value,
                 "vector<> should be detected as a range");
@@ -123,6 +124,7 @@ TEST(TypeTraits, IsRange) {
   static_assert(!is_range<const int*>::value,
                 "even const int* shouldn't be a range");
 }
+#endif
 
 }  // namespace base
 }  // namespace astc_codec

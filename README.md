@@ -24,6 +24,8 @@ bool result = astc_codec::ASTCDecompressToRGBA(
 
 ## Building
 
+### With bazel
+
 Install [Bazel](https://bazel.build/), and then run:
 
 ```
@@ -32,11 +34,30 @@ bazel build :astc_codec -c opt
 
 astc-codec has been tested on Mac and Linux.
 
-## Run Tests
+### Run Tests
 
 ```
 bazel test //...
 ```
+
+### With CMake
+
+Install [CMake](https://https://cmake.org/), and the run:
+
+```
+mkdir build && cd build && cmake .. && make
+```
+
+Or open the project in your favorite IDE and import CMakeLists.txt.
+
+### Run Tests
+
+In the build directory, execute:
+
+```
+ctest
+```
+
 
 ## Contributing
 
