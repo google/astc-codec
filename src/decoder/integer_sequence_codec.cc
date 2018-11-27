@@ -193,13 +193,20 @@ inline constexpr bool IsPow2(T x) { return (x & (x - 1)) == 0; }
 const int kInterleavedQuintBits[3] = { 3, 2, 2 };
 const int kInterleavedTritBits[5] = { 2, 2, 1, 2, 1 };
 
+// Some template meta programming to get around the fact that MSVC
+// will not allow  (ValRange == 5) ? 3 : 5 as a template parameter
+template<int ValRange>
+struct DecodeBlockSize {
+  enum { value =  (ValRange == 5 ? 3 : 5) };
+};
+
 // Decodes either a trit or quint block using the BISE (Bounded Integer Sequence
 // Encoding) defined in Section C.2.12 of the ASTC specification. ValRange is
 // expected to be either 3 or 5 depending on whether or not we're encoding trits
 // or quints respectively. In other words, it is the remaining factor in whether
 // the passed blocks contain encoded values of the form 3*2^k or 5*2^k.
 template<int ValRange>
-std::array<int, /* kNumVals = */ (ValRange == 5) ? 3 : 5> DecodeISEBlock(
+std::array<int, /* kNumVals = */ DecodeBlockSize<ValRange>::value> DecodeISEBlock(
     uint64_t block_bits, int num_bits) {
   static_assert(ValRange == 3 || ValRange == 5,
                 "We only know about trits and quints");

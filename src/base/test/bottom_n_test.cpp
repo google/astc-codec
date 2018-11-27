@@ -33,7 +33,8 @@ TEST(BottomN, Sort) {
   {
     BottomN<int> heap(10);
     EXPECT_TRUE(heap.Empty());
-    pushAll(heap, (int[]){1, 2});
+    int list[] = { 1,2 };
+    pushAll(heap, list);
 
     EXPECT_EQ(heap.Size(), 2);
     EXPECT_FALSE(heap.Empty());
@@ -42,7 +43,8 @@ TEST(BottomN, Sort) {
 
   {
     BottomN<int> heap(6);
-    pushAll(heap, (int[]){1, 4, 3, 2, 2, 1});
+    int list[] = {1, 4, 3, 2, 2, 1};
+    pushAll(heap, list);
 
     EXPECT_EQ(heap.Size(), 6);
     EXPECT_THAT(heap.Pop(), ElementsAre(1, 1, 2, 2, 3, 4));
@@ -52,7 +54,8 @@ TEST(BottomN, Sort) {
 TEST(BottomN, Bounds) {
   {
     BottomN<int> heap(4);
-    pushAll(heap, (int[]){1, 2, 3, 4});
+    int list[] = { 1, 2, 3, 4 };
+    pushAll(heap, list);
     EXPECT_EQ(heap.Size(), 4);
 
     heap.Push(0);
@@ -63,21 +66,12 @@ TEST(BottomN, Bounds) {
 
   {
     BottomN<int> heap(4);
-    pushAll(heap, (int[]){4, 3, 2, 1});
+    int list[] = { 4, 3, 2,1 };
+    pushAll(heap, list);
     EXPECT_EQ(heap.Size(), 4);
 
-    pushAll(heap, (int[]){4, 4, 4, 4});
-    EXPECT_EQ(heap.Size(), 4);
-
-    EXPECT_THAT(heap.Pop(), ElementsAre(1, 2, 3, 4));
-  }
-
-  {
-    BottomN<int> heap(4);
-    pushAll(heap, (int[]){4, 3, 2, 1});
-    EXPECT_EQ(heap.Size(), 4);
-
-    pushAll(heap, (int[]){5, 5, 5, 5});
+    int list2[] = { 4,4,4,4 };
+    pushAll(heap, list2);
     EXPECT_EQ(heap.Size(), 4);
 
     EXPECT_THAT(heap.Pop(), ElementsAre(1, 2, 3, 4));
@@ -85,10 +79,25 @@ TEST(BottomN, Bounds) {
 
   {
     BottomN<int> heap(4);
-    pushAll(heap, (int[]){4, 3, 2, 1});
+    int list[] = { 4, 3, 2, 1 };
+    pushAll(heap, list);
     EXPECT_EQ(heap.Size(), 4);
 
-    pushAll(heap, (int[]){0, 0, 0, 0});
+    int list2[] = { 5, 5, 5, 5 };
+    pushAll(heap, list2);
+    EXPECT_EQ(heap.Size(), 4);
+
+    EXPECT_THAT(heap.Pop(), ElementsAre(1, 2, 3, 4));
+  }
+
+  {
+    BottomN<int> heap(4);
+    int list[] = { 4, 3, 2, 1 };
+    pushAll(heap, list);
+    EXPECT_EQ(heap.Size(), 4);
+
+    int list2[] = { 0, 0, 0, 0 };
+    pushAll(heap, list2);
     EXPECT_EQ(heap.Size(), 4);
 
     EXPECT_THAT(heap.Pop(), ElementsAre(0, 0, 0, 0));
