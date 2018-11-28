@@ -23,5 +23,5 @@ if(OPTION_ASTC_TESTS)
                  test/type_traits_test.cpp
                  test/uint128_test.cpp)
   target_link_libraries(base_test base gmock_main)
-  add_test(base_test base_test)
+  add_test(NAME base_test COMMAND base_test WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 endif()
