@@ -23,10 +23,10 @@ git_repository(
 
 http_archive(
     name = "honggfuzz",
-    url = "https://github.com/google/honggfuzz/archive/1.6.zip",
-    sha256 = "c331ac5beebe526bced3043ed3012109e439315b7d74d72760b0aa6d08cc05d2",
+    url = "https://github.com/google/honggfuzz/archive/1.7.zip",
+    sha256 = "9d420326979fed4a065fa6176d5e09bd513cd2820fe216ae8b684aa6780d72b2",
     build_file = "//third_party:honggfuzz.BUILD",
-    strip_prefix = "honggfuzz-1.6",
+    strip_prefix = "honggfuzz-1.7",
 )
 
 http_archive(
