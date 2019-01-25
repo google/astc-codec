@@ -90,7 +90,7 @@ cc_library(
     name = "test",
     testonly = 1,
     hdrs = ["test/image_utils.h"],
-    deps = ["@gtest//:gtest_main"],
+    deps = ["@gtest//:gtest"],
 )
 
 cc_test(

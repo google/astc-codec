@@ -42,7 +42,7 @@ bazel test //...
 
 ### With CMake
 
-Install [CMake](https://https://cmake.org/), and the run:
+Install [CMake](https://cmake.org/), and the run:
 
 ```
 mkdir build && cd build && cmake .. && make
