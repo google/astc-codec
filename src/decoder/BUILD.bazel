@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+licenses(["notice"])
+
 cc_library(
     name = "footprint",
     srcs = ["footprint.cc"],
@@ -47,6 +49,10 @@ cc_library(
         "types.h",
         "weight_infill.h",
     ],
+    copts = [
+        "-Wno-unused-variable",
+        "-O3",
+    ],
     deps = [
         ":footprint",
         "//src/base",
@@ -57,12 +63,12 @@ cc_library(
     name = "codec",
     srcs = ["codec.cc"],
     hdrs = ["codec.h"],
+    visibility = ["//:__pkg__"],
     deps = [
         ":astc_utils",
         ":footprint",
         "//src/base",
     ],
-    visibility = ["//:__pkg__"],
 )
 
 cc_binary(
@@ -82,10 +88,9 @@ cc_binary(
 
 cc_library(
     name = "test",
+    testonly = 1,
     hdrs = ["test/image_utils.h"],
-    deps = [
-        "@gtest//:gtest_main",
-    ],
+    deps = ["@gtest//:gtest_main"],
 )
 
 cc_test(
@@ -95,12 +100,13 @@ cc_test(
     deps = [
         ":astc_utils",
         "@gtest//:gtest_main",
+        "//src/base",
     ],
 )
 
 cc_test(
     name = "partition_test",
-    size = "small",
+    size = "medium",
     srcs = ["test/partition_test.cc"],
     deps = [
         ":astc_utils",
@@ -115,6 +121,7 @@ cc_test(
     deps = [
         ":astc_utils",
         "@gtest//:gtest_main",
+        "//src/base",
     ],
 )
 
@@ -180,8 +187,8 @@ cc_test(
         "testdata/rgb_*.bmp",
     ]),
     deps = [
-        ":test",
         ":astc_utils",
+        ":test",
         "@gtest//:gtest_main",
     ],
 )
@@ -195,9 +202,10 @@ cc_test(
         "testdata/atlas_small_*.bmp",
     ]),
     deps = [
-        ":test",
         ":codec",
+        ":test",
         "@gtest//:gtest_main",
+        "//:api",
     ],
 )
 
