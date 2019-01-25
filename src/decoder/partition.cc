@@ -169,7 +169,7 @@ struct PartitionHasher {
 
     // The return value will be the hash of the assignment according to this
     // mapping
-    const auto seed = 0;
+    const size_t seed = 0;
     return std::accumulate(part.assignment.begin(), part.assignment.end(), seed,
                            [&mapping](size_t seed, const int& subset) {
                              std::hash<size_t> hasher;

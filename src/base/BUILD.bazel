@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+licenses(["notice"])
+
 cc_library(
     name = "base",
     hdrs = [
@@ -24,6 +26,7 @@ cc_library(
         "uint128.h",
         "utils.h",
     ],
+    features = ["-parse_headers"],
     visibility = ["//src/decoder:__pkg__"],
 )
 
