@@ -22,7 +22,8 @@ cc_library(
 
 cc_library(
     name = "astc_codec",
-    deps = ["//src/decoder:codec"],
+    hdrs = ["include/astc-codec/astc-codec.h"],
     includes = ["include"],
     visibility = ["//visibility:public"],
+    deps = ["//src/decoder:codec"],
 )
