@@ -17,7 +17,7 @@ const size_t height = 480;
 std::vector<uint8_t> result;
 result.resize(width * height * 4);
 
-bool result = astc_codec::ASTCDecompressToRGBA(
+bool success = astc_codec::ASTCDecompressToRGBA(
     astc.data(), astc.size(), width, height, astc_codec::FootprintType::k4x4,
     result.data(), result.size(), /* stride */ width * 4);
 ```
