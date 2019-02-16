@@ -63,11 +63,11 @@ bool DecompressToImage(const uint8_t* astc_data, size_t astc_data_size,
   static_assert(sizeof(block) == PhysicalASTCBlock::kSizeInBytes,
                 "Block size mismatch");
 
-  for (size_t i = 0; i < astc_data_size; i += PhysicalASTCBlock::kSizeInBytes) {
-    const size_t block_index = i / PhysicalASTCBlock::kSizeInBytes;
+  for (size_t i0 = 0; i0 < astc_data_size; i0 += PhysicalASTCBlock::kSizeInBytes) {
+    const size_t block_index = i0 / PhysicalASTCBlock::kSizeInBytes;
     const size_t block_x = block_index % blocks_wide;
     const size_t block_y = block_index / blocks_wide;
-    memcpy(&block, astc_data + i, sizeof(block));
+    block = *(base::UInt128*)(astc_data + i0);
 
     PhysicalASTCBlock physical_block(block);
     auto lb = UnpackLogicalBlock(footprint, physical_block);

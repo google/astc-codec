@@ -103,8 +103,8 @@ void LogicalASTCBlock::CalculateWeights(const Footprint& footprint,
   // Either we have a dual plane and we have twice as many weights as
   // specified or we don't
   assert(block.dual_plane_channel
-        ? block.weights.size() == weight_grid_size * 2
-        : block.weights.size() == weight_grid_size);
+        ? block.weights.size() == size_t(weight_grid_size * 2)
+        : block.weights.size() == size_t(weight_grid_size));
 
   std::vector<int> unquantized;
   unquantized.reserve(weight_grid_size);
@@ -235,7 +235,7 @@ void LogicalASTCBlock::SetPartition(const Partition& p) {
 
 void LogicalASTCBlock::SetEndpoints(const EndpointPair& eps, int subset) {
   assert(subset < partition_.num_parts);
-  assert(subset < endpoints_.size());
+  assert(size_t(subset) < endpoints_.size());
 
   endpoints_[subset] = eps;
 }

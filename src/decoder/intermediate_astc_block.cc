@@ -124,7 +124,7 @@ static base::Optional<std::string> PackBlockMode(int dim_x, int dim_y, int range
   // We need to set the high precision bit if our range is too high...
   bool high_prec = range > 7;
 
-  std::array<int, 3> r;
+  std::array<int, 3> r = {};
   const auto result = GetEncodedWeightRange(range, &r);
   if (result) {
     return result;
@@ -389,8 +389,8 @@ base::Optional<VoidExtentData> UnpackVoidExtent(const PhysicalASTCBlock& pb) {
 base::Optional<std::string> Pack(const IntermediateBlockData& data,
                                  base::UInt128* pb) {
   if (data.weights.size() !=
-      data.weight_grid_dim_x * data.weight_grid_dim_y *
-      (data.dual_plane_channel.hasValue() ? 2 : 1)) {
+      size_t(data.weight_grid_dim_x * data.weight_grid_dim_y *
+      (data.dual_plane_channel.hasValue() ? 2 : 1))) {
     return std::string("Incorrect number of weights!");
   }
 
@@ -498,7 +498,7 @@ base::Optional<std::string> Pack(const IntermediateBlockData& data,
       assert(ep_mode < 4);
       cem_encoder.PutBits(ep_mode, 2);
     }
-    assert(cem_encoder.Bits() == 2 + num_partitions * 3);
+    assert(cem_encoder.Bits() == uint32_t(2 + num_partitions * 3));
 
     uint32_t encoded_cem;
     cem_encoder.GetBits(2 + num_partitions * 3, &encoded_cem);
@@ -566,7 +566,7 @@ base::Optional<std::string> Pack(const IntermediateBlockData& data,
   bit_sink.PutBits(extra_config, extra_config_bits);
 
   // We should be right up to the weight bits...
-  assert(bit_sink.Bits() == 128 - num_weight_bits);
+  assert(bit_sink.Bits() == uint32_t(128 - num_weight_bits));
 
   // Flush out our bit writer and write out the weight bits
   base::UInt128 astc_bits;

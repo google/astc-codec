@@ -210,11 +210,11 @@ int GetUnquantizedQuintWeight(int quint, int bits, int range) {
 // according to the ASTC spec.
 class QuantizationMap {
  public:
-  int Quantize(int x) const {
+  int Quantize(size_t x) const {
     return x < quantization_map_.size() ? quantization_map_.at(x) : 0;
   }
 
-  int Unquantize(int x) const {
+  int Unquantize(size_t x) const {
     return x < unquantization_map_.size() ? unquantization_map_.at(x) : 0;
   }
 
@@ -298,7 +298,7 @@ class BitQuantizationMap : public QuantizationMap {
     const int num_bits = base::Log2Floor(range + 1);
     for (int bits = 0; bits <= range; ++bits) {
       // Need to replicate bits until we fill up the bits
-      int unquantized = bits;
+      size_t unquantized = bits;
       int num_unquantized_bits = num_bits;
       while (num_unquantized_bits < TotalUnquantizedBits) {
         const int num_dst_bits_to_shift_up =
@@ -316,7 +316,7 @@ class BitQuantizationMap : public QuantizationMap {
       // Fill half of the quantization map with the previous value for bits
       // and the other half with the current value for bits
       if (bits > 0) {
-        const int prev_unquant = unquantization_map_.at(bits - 1);
+        const size_t prev_unquant = unquantization_map_.at(bits - 1);
         while (quantization_map_.size() <= (prev_unquant + unquantized) / 2) {
           quantization_map_.push_back(bits - 1);
         }

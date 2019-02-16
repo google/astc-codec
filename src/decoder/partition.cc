@@ -169,8 +169,8 @@ struct PartitionHasher {
 
     // The return value will be the hash of the assignment according to this
     // mapping
-    const size_t seed = 0;
-    return std::accumulate(part.assignment.begin(), part.assignment.end(), seed,
+    const size_t seed0 = 0;
+    return std::accumulate(part.assignment.begin(), part.assignment.end(), seed0,
                            [&mapping](size_t seed, const int& subset) {
                              std::hash<size_t> hasher;
                              const int s = mapping[subset];
@@ -226,7 +226,7 @@ class PartitionTree {
       }
     }
 
-    assert(results->size() == k);
+    assert(results->size() == size_t(k));
   }
 
  private:
@@ -267,7 +267,7 @@ class PartitionTree {
       // Calculate the distances of the remaining nodes against the vantage
       // point.
       std::vector<std::pair<int, int>> part_dists;
-      for (int i = 1; i < part_indices.size(); ++i) {
+      for (size_t i = 1; i < part_indices.size(); ++i) {
         const int idx = part_indices[i];
         const int dist = PartitionMetric(vantage_point, parts[idx]);
         if (dist > 0) {

@@ -231,6 +231,7 @@ std::array<int, /* kNumVals = */ DecodeBlockSize<ValRange>::value> DecodeISEBloc
       uint64_t bits = 0;
       const bool result = block_bit_src.GetBits(num_bits, &bits);
       assert(result);
+      (void)result;
 
       m[i] = static_cast<int>(bits);
     }
@@ -239,6 +240,7 @@ std::array<int, /* kNumVals = */ DecodeBlockSize<ValRange>::value> DecodeISEBloc
     {
       const bool result = block_bit_src.GetBits(kInterleavedBits[i], &encoded_bits);
       assert(result);
+      (void)result;
     }
     encoded |= encoded_bits << encoded_bits_read;
     encoded_bits_read += kInterleavedBits[i];
@@ -346,7 +348,7 @@ void EncodeISEBlock(const std::vector<int>& vals, int bits_per_val,
   assert(non_bit_encoding >= 0);
 
   // Now pack the bits into the block
-  for (int i = 0; i < vals.size(); ++i) {
+  for (size_t i = 0; i < vals.size(); ++i) {
     // First add the base bits for this value
     if (bits_added + bits_per_val <= total_num_bits) {
       bit_sink->PutBits(bits[i], bits_per_val);
@@ -368,6 +370,7 @@ inline void CHECK_COUNTS(int trits, int quints) {
   assert(trits == 0 || quints == 0);   // Either trits or quints
   assert(trits == 0 || trits == 1);    // At most one trit
   assert(quints == 0 || quints == 1);  // At most one quint
+  (void)trits; (void)quints;
 }
 
 }  // namespace
@@ -490,8 +493,9 @@ std::vector<int> IntegerSequenceDecoder::Decode(
   while (bits_left > 0) {
     uint64_t block_bits;
     {
-      const bool result = bit_src->GetBits(std::min(bits_left, bits_per_block), &block_bits);
-      assert(result);
+      const bool result0 = bit_src->GetBits(std::min(bits_left, bits_per_block), &block_bits);
+      assert(result0);
+      (void)result0;
     }
 
     switch (encoding_) {

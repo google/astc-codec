@@ -118,7 +118,7 @@ base::Optional<std::string> Pack(const VoidExtentData& data, base::UInt128* pb);
 //
 // Impl
 
-inline int EndpointRangeForBlock(const VoidExtentData& data) {
+inline int EndpointRangeForBlock(const VoidExtentData&) {
   // Void extent blocks use 16-bit ARGB definitions
   return (1 << 16) - 1;
 }
