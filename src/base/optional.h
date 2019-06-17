@@ -16,6 +16,7 @@
 #define ASTC_CODEC_BASE_OPTIONAL_H_
 
 #include "src/base/type_traits.h"
+#include "src/base/utils.h"
 
 #include <cassert>
 #include <initializer_list>
@@ -350,8 +351,7 @@ class Optional
     return get();
   }
   constexpr const T& value() const {
-    assert(this->constructed());
-    return get();
+    return ASTC_CONSTEXPR_ASSERT(this->constructed()), get();
   }
 
   T* ptr() { return this->constructed() ? &get() : nullptr; }
@@ -372,8 +372,7 @@ class Optional
     return get();
   }
   constexpr const T& operator*() const {
-    assert(this->constructed());
-    return get();
+    return ASTC_CONSTEXPR_ASSERT(this->constructed()), get();
   }
 
   T* operator->() {
@@ -381,8 +380,7 @@ class Optional
     return &get();
   }
   constexpr const T* operator->() const {
-    assert(this->constructed());
-    return &get();
+    return ASTC_CONSTEXPR_ASSERT(this->constructed()), &get();
   }
 
   ~Optional() {
