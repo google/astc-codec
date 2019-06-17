@@ -32,4 +32,21 @@
 #define UTILS_RELEASE_ASSERT(x) assert(x)
 #endif
 
+// In C++11, `assert` can't be used portably within constexpr functions.
+// ASTC_CONSTEXPR_ASSERT functions as a runtime assert but works in C++11
+// constexpr functions. Example:
+//
+// constexpr double Divide(double a, double b) {
+//   return ASTC_CONSTEXPR_ASSERT(b != 0), a / b;
+// }
+//
+// This macro is based on ABSL_ASSERT.
+#ifdef NDEBUG
+#define ASTC_CONSTEXPR_ASSERT(expr) \
+  (false ? static_cast<void>(expr) : static_cast<void>(0))
+#else
+#define ASTC_CONSTEXPR_ASSERT(expr) \
+  ((expr) ? static_cast<void>(0) : [] { assert(false && #expr); }())
+#endif
+
 #endif  // ASTC_CODEC_BASE_UTILS_H_
